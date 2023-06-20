@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "velocity-agent.fullname" . }}
+  labels:
+    {{- include "velocity-agent.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "velocity-agent.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "velocity-agent.selectorLabels" . | nindent 8 }}
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "velocity-agent.fullname" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+          env:
+            - name: "AGENT_ID"
+              value: "{{ .Values.agent.agent_id }}"
+            - name: "AGENT_TOKEN"
+              value: "{{ .Values.agent.agent_token }}"
+            - name: "VCS_ID"
+              value: "{{ .Values.agent.vcs_id }}"
+            - name: "VCS_CLIENT_ID"
+              value: "{{ .Values.agent.vcs_client_id }}"
+            - name: "VCS_CLIENT_SECRET"
+              value: "{{ .Values.agent.vcs_client_secret }}"
+            - name: "VCS_GITHUB_APP_ID"
+              value: "{{ .Values.agent.vcs_github_app_id }}"
+            - name: "VCS_PRIVATE_KEY"
+              value: |
+{{ .Values.vcs_private_key | indent 16 }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: console
+              containerPort: 5050
+              protocol: TCP
+          volumeMounts:
+            - mountPath: "/data"
+              name: data

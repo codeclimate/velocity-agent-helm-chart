@@ -1,0 +1,6 @@
+apiVersion: v2
+name: velocity-agent
+description: A Helm chart to run the Velocity Agent
+type: application
+version: 1.0.5
+appVersion: "2.12.0"

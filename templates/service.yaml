@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "velocity-agent.fullname" . }}
+  labels:
+    {{- include "velocity-agent.labels" . | nindent 4 }}
+spec:
+  type: "ClusterIP"
+  ports:
+    - port: 4040
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 5050
+      targetPort: console
+      protocol: TCP
+      name: console
+  selector:
+    {{- include "velocity-agent.selectorLabels" . | nindent 4 }}

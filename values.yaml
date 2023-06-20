@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: codeclimate/velocity-agent
+  pullPolicy: Always
+  tag: "latest-v2"
+
+resources:
+  limits:
+    memory: "16Gi"
+
+volume:
+  size: "100Gi"
