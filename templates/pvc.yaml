@@ -5,7 +5,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: standard
+  storageClassName: "{{ .Values.storage_class }}"  
   resources:
     requests:
       storage: {{ .Values.volume.size }}
