@@ -7,7 +7,7 @@ image:
 
 resources:
   limits:
-    memory: "16Gi"
+    memory: "8Gi"
 
 volume:
   size: "100Gi"

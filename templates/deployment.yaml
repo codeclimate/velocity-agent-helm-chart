@@ -43,7 +43,7 @@ spec:
             - name: "PMT_API_TOKEN_USERNAME"
               value: "{{ .Values.pmt_api_token_username }}"
             - name: "PMT_ID"
-              value: "{{ .Valuespmt_id }}"  
+              value: "{{ .Values.pmt_id }}"  
             - name: "VCS_PRIVATE_KEY"
               value: |
 {{ .Values.vcs_private_key | indent 16 }}
