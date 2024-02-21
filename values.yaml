@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: codeclimate/velocity-agent
   pullPolicy: Always
-  tag: "latest-v2"
+  tag: "latest"
 
 resources:
   limits:
